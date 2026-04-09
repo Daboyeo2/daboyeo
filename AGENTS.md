@@ -1,77 +1,88 @@
-# daboyeo Workspace Agents
+﻿# Workspace Override: daboyeo
 
-This workspace uses `PROJECT_HARNESS.md` as the source-of-truth harness for AI agents.
-If there is any ambiguity, follow `PROJECT_HARNESS.md` first.
+CGV, 濡?뜲?쒕꽕留? 硫붽?諛뺤뒪 ?곸쁺 ?곗씠?곕? ?섏쭛??鍮꾧탳?섎뒗 ?곹솕 ?곸쁺 鍮꾧탳 ?뚮옯?쇱씠硫? ?꾩옱 ?듭떖 紐⑺몴??3???섏쭛湲?援ъ텞怨?寃利앹씠??
 
-## Active Persona
+This file adds repository-specific rules on top of the global multi-agent defaults.
+Global multi-agent defaults remain in effect unless this file narrows them.
 
-- Name: `다해줘!`
+## Repository Facts
 
-## Priority Order
+- Error log path: `ERROR_LOG.md`
+- Source of truth: PROJECT_HARNESS.md, collector/**, docs/**
+- Shell runtime: PowerShell
+- Authoring model: ?꾨줎?몄뿏?쒕뒗 諛붾땺??HTML/CSS/JS瑜??좎??섍퀬, ?곗씠???섏쭛? 媛?ν븯硫??ъ씠?몃퀎 API 吏곸젒 ?몄텧???곗꽑?섎ŉ, 鍮꾧탳 援ъ“???꾩쟾 ?듯빀蹂대떎 理쒖냼 怨듯넻 ?꾨뱶? ?먮낯 ?뱀꽦 蹂댁〈???곗꽑?쒕떎
+- Task board path: `STATE.md`
+- Multi-agent log path: `MULTI_AGENT_LOG.md`
+- Error log path: `ERROR_LOG.md`
 
-Resolve conflicts in this order:
+## Required Context Before Editing
 
-1. `PROJECT_HARNESS.md`
-2. Direct user instruction
-3. Local project rules in this workspace
-4. Default agent behavior
+- PROJECT_HARNESS.md
+- README.md
+- STATE.md
 
-If the user explicitly declares an exception such as `이번엔 예외로 해`, that exception is allowed for that turn.
+## Verification Commands
 
-## Mandatory Rules
+- git status --short
+- Get-Content -Raw WORKSPACE_CONTEXT.toml
+- Select-String -Path WORKSPACE_CONTEXT.toml -Pattern '^\[workspace\]','^\[architecture\]','^\[editing_rules\]','^\[verification\]'
 
-- Do not guess. Read files, search the repo, inspect logs/config/docs, or browse when outside information is needed.
-- Do not inject forced implementation rules without user approval.
-- Do not arbitrarily introduce frontend frameworks or libraries.
-- Keep frontend work limited to vanilla `HTML`, `CSS`, and `JavaScript`.
-- Prefer direct site/API calls as the source of truth for collection work over browser automation.
-- Final task reports must include:
-  - where
-  - what
-  - how
-  - why
-  - verification
+## Shared Contracts
 
-## Project Context
+- ?꾨줎?몄뿏?쒕뒗 HTML/CSS/JS留??ъ슜?섍퀬 ?꾩쓽 ?꾨젅?꾩썙?щ굹 ?쇱씠釉뚮윭由щ? ?꾩엯?섏? ?딅뒗??, 
+- , 
+- ?곹솕愿蹂??뱀닔愿, ?щ㎎, ?뺤콉, 醫뚯꽍 ?뱀꽦? ?먮낯 ?깆쭏???좎??쒕떎
+- ?꾩옱 ?곗꽑?쒖쐞???꾩껜 ?쒕퉬??留덇컧蹂대떎 3???섏쭛湲?援ъ텞怨?寃利앹씠??, 
+- Frontend source of truth remains PROJECT_HARNESS.md, collector/**, docs/**
+- Route constants stay aligned with ?ъ슜???쒕퉬?ㅼ? 愿由ъ옄 ?댁쁺 湲곕뒫? ??븷??遺꾨━?섍퀬, 鍮꾧탳 紐⑤뜽? 理쒖냼 怨듯넻 ?꾨뱶 以묒떖?쇰줈 ?좎??쒕떎
+- ?꾨줎?몄뿏?쒕뒗 諛붾땺??HTML/CSS/JS瑜??좎??섍퀬, ?곗씠???섏쭛? 媛?ν븯硫??ъ씠?몃퀎 API 吏곸젒 ?몄텧???곗꽑?섎ŉ, 鍮꾧탳 援ъ“???꾩쟾 ?듯빀蹂대떎 理쒖냼 怨듯넻 ?꾨뱶? ?먮낯 ?뱀꽦 蹂댁〈???곗꽑?쒕떎
 
-`다보여?` is a movie showtime comparison platform across CGV, Lotte Cinema, and Megabox.
+## Shared Asset Paths
 
-Current project priorities:
+- collector/**
+- docs/**
 
-1. Build and verify the 3-site collectors
-2. Create a structure that supports comparison of showtime data
-3. Build the user service site
-4. Build the admin site for crawling operations
-5. Search and filtering
-6. Seats and congestion-related features
-7. Recommendation, alerts, reviews, and other expansions
+## Repo-Specific Hard Triggers
 
-## Implementation Guidance
+- ?꾨줎?몄뿏?쒖뿉 ?꾨젅?꾩썙?щ굹 ?몃? ?쇱씠釉뚮윭由щ? ?꾩엯?섎뒗 蹂寃?, 
+- ?ъ슜???쒕퉬?ㅼ? 愿由ъ옄 ?댁쁺 湲곕뒫??遺꾨━ ?먯튃??源⑤뒗 蹂寃?, 
+- Changing route constants or route ownership in ?ъ슜???쒕퉬?ㅼ? 愿由ъ옄 ?댁쁺 湲곕뒫? ??븷??遺꾨━?섍퀬, 鍮꾧탳 紐⑤뜽? 理쒖냼 怨듯넻 ?꾨뱶 以묒떖?쇰줈 ?좎??쒕떎
+- Changing shared shell runtime behavior in PowerShell
 
-- Separate the user-facing service and admin site by responsibility.
-- Do not force all theater data into one fully unified schema.
-- Standardize only the minimum common fields required for comparison/filtering.
-- Preserve theater-specific attributes such as special formats, policies, and seat characteristics.
-- When working on data models, optimize for comparability plus source fidelity.
+## Do-Not-Touch Paths
 
-## First-Response Contract
+- dist/**
+- generated/**
+- vendor/**
+- .git/**
 
-After applying this harness, the first response in the session should include:
+## Manual Approval Zones
 
-- name: `다해줘!`
-- the priority order
-- how the harness was applied
-- whether merge/application succeeded
+- ?꾨줎?몄뿏??湲곗닠 ?ㅽ깮 蹂寃?, 
+- , 
+- , 
 
-This first-response test should only be emitted once per session.
+## Worker Mapping
 
-## Completion Report Contract
+- worker_collectors = collector/**
+- worker_user_service = user-service/**
+- worker_admin = admin/**
+- worker_shared = docs/**
 
-At the end of any completed task, report in this shape:
+## Repository Overrides
 
-- 어디를: modified files, documents, modules, or paths
-- 무엇을: added/changed/removed behavior or content
-- 어떻게: implementation or merge approach
-- 왜: intent or reasoning
-- 확인: files read, searches run, or validation performed
+- Use score-based orchestration to choose the role mix and task-scoped budget instead of fixed caps
+  `agent_budget`, `execution_topology`, `selected_rules`, and `selected_skills` decide how much support is spawned
+- Keep `STATE.md` updated with `score_total`, `score_breakdown`, `hard_triggers`, `selected_rules`, `selected_skills`, `execution_topology`, `delegation_plan`, `agent_budget`, `writer_slot`, `contract_freeze`, and `write_sets`
+- If multiple roles are used, append real participation to `MULTI_AGENT_LOG.md` before reporting that they ran
+- Add repository-specific worker ownership, hard triggers, approval zones, and delegation hints here as they become clear
+- Let this repository narrow agent-driven routing further only when it truly needs stricter local rules
+
+## Reviewer Focus
+
+- 3???섏쭛湲??곗꽑?쒖쐞 ?뺣젹
+- 諛붾땺???꾨줎?몄뿏???쒖빟 ?좎?
+- 理쒖냼 怨듯넻 ?꾨뱶? ?먮낯 ?뱀꽦 蹂댁〈
+- ?ъ슜???쒕퉬?ㅼ? 愿由ъ옄 湲곕뒫 遺꾨━ ?좎?
+- 寃利??꾨씫 ?щ?
 
