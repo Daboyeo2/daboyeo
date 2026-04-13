@@ -1,4 +1,11 @@
-from .api import CgvApiClient
-from .collector import CgvCollector
+from .cgv import CgvApiClient, CgvCollector
+from .lotte import LotteCinemaApiClient, LotteCinemaCollector
+from .megabox import MegaboxCollector
 
-__all__ = ["CgvApiClient", "CgvCollector"]
+__all__ = [
+    "CgvApiClient",
+    "CgvCollector",
+    "LotteCinemaApiClient",
+    "LotteCinemaCollector",
+    "MegaboxCollector",
+]

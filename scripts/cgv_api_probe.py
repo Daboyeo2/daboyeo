@@ -2,12 +2,12 @@ import base64
 import hashlib
 import hmac
 import json
+import os
 import time
 from urllib.parse import urlencode, urlparse
 from urllib.request import Request, urlopen
 
 
-API_SECRET = "ydqXY0ocnFLmJGHr_zNzFcpjwAsXq_8JcBNURAkRscg"
 API_BASE = "https://api.cgv.co.kr"
 DEFAULT_HEADERS = {
     "Accept": "application/json",
@@ -23,9 +23,13 @@ DEFAULT_HEADERS = {
 
 
 def build_signature(pathname: str, body: str, timestamp: str) -> str:
+    api_secret = os.environ.get("CGV_API_SECRET", "")
+    if not api_secret:
+        raise RuntimeError("CGV_API_SECRET 환경변수가 필요함")
+
     payload = f"{timestamp}|{pathname}|{body}"
     digest = hmac.new(
-        API_SECRET.encode("utf-8"),
+        api_secret.encode("utf-8"),
         payload.encode("utf-8"),
         hashlib.sha256,
     ).digest()

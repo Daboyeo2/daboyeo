@@ -4,13 +4,13 @@ import base64
 import hashlib
 import hmac
 import json
+import os
 import time
 from typing import Any
 from urllib.parse import urlencode, urlparse
 from urllib.request import Request, urlopen
 
 
-API_SECRET = "ydqXY0ocnFLmJGHr_zNzFcpjwAsXq_8JcBNURAkRscg"
 API_BASE = "https://api.cgv.co.kr"
 DEFAULT_HEADERS = {
     "Accept": "application/json",
@@ -29,11 +29,13 @@ class CgvApiClient:
     def __init__(
         self,
         api_base: str = API_BASE,
-        api_secret: str = API_SECRET,
+        api_secret: str | None = None,
         headers: dict[str, str] | None = None,
     ) -> None:
         self.api_base = api_base
-        self.api_secret = api_secret
+        self.api_secret = api_secret or os.environ.get("CGV_API_SECRET", "")
+        if not self.api_secret:
+            raise RuntimeError("CGV_API_SECRET 환경변수가 필요함")
         self.headers = {**DEFAULT_HEADERS, **(headers or {})}
 
     def _build_signature(self, pathname: str, body: str, timestamp: str) -> str:
